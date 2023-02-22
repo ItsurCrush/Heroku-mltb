@@ -311,7 +311,7 @@ class MirrorLeechListener:
             warnmsg = ''
         if BOT_PM_X and self.message.chat.type != 'private':
             if config_dict['EMOJI_THEME']:
-                pmwarn = f"<b>😉 I have sent files in PM.</b>\n"
+                pmwarn = f"<b>📩 I have sent files in PM.</b>\n"
             else:
                 pmwarn = f"<b>I have sent files in PM.</b>\n"
         elif self.message.chat.type == 'private':
@@ -320,7 +320,7 @@ class MirrorLeechListener:
             pmwarn = ''
         if 'mirror_logs' in user_data and self.message.chat.type != 'private':
             if config_dict['EMOJI_THEME']:
-                logwarn = f"<b>⚠️ I have sent files in Mirror Log Channel. Join <a href=\"{config_dict['MIRROR_LOG_URL']}\">Mirror Log channel</a> </b>\n"
+                logwarn = f"<b>📩 I have sent files in Mirror Log Channel. Join <a href=\"{config_dict['MIRROR_LOG_URL']}\">Mirror Log channel</a> </b>\n"
             else:
                 logwarn = f"<b>I have sent files in Mirror Log Channel. Join <a href=\"{config_dict['MIRROR_LOG_URL']}\">Mirror Log channel</a> </b>\n"
         elif self.message.chat.type == 'private':
@@ -329,7 +329,7 @@ class MirrorLeechListener:
             logwarn = ''
         if 'is_leech_log' in user_data and self.message.chat.type != 'private':
             if config_dict['EMOJI_THEME']:
-                logleechwarn = f"<b>⚠️ I have sent files in Leech Log Channel. Join <a href=\"{config_dict['LEECH_LOG_URL']}\">Leech Log channel</a> </b>\n"
+                logleechwarn = f"<b>📩 I have sent files in Leech Log Channel. Join <a href=\"{config_dict['LEECH_LOG_URL']}\">Leech Log channel</a> </b>\n"
             else:
                 logleechwarn = f"<b>I have sent files in Leech Log Channel. Join <a href=\"{config_dict['LEECH_LOG_URL']}\">Leech Log channel</a> </b>\n"
         elif self.message.chat.type == 'private':
