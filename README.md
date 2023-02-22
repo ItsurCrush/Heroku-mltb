@@ -13,7 +13,7 @@ If you want to add service account json then create a folder name accounts and u
 This docker is unable to extract accounts.zip . So create a folder name accounts and upload all service accounts json in accounts folder.
 If you add anything in heroku branch you need to run workflow to load changes .
 
-# Torr... and mag.. mirroring with /qb command will down your bot and your account will suspend . So use only /mirror for torr.. and mag.. . Just remember dont use /qb for anything .
+# Torr... and mag.. mirr... with /qb command will down your bot and your account will suspend . So use only /m for torr.. and mag.. . Just remember dont use /qb for anything .
 
 # Support Group 
 
