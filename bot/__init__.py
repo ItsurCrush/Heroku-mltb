@@ -870,6 +870,12 @@ srun(["cp", ".netrc", "/root/.netrc"])
 srun(["chmod", "600", ".netrc"])
 srun(["chmod", "+x", "aria.sh"])
 srun("./aria.sh", shell=True)
+if ospath.exists('accounts.zip'):
+    if ospath.exists('accounts'):
+        srun(["rm", "-rf", "accounts"])
+    srun(["unzip", "-q", "-o", "accounts.zip", "-x"])
+    srun(["chmod", "-R", "777", "accounts"])
+    osremove('accounts.zip')
 if not ospath.exists('accounts'):
     config_dict['USE_SERVICE_ACCOUNTS'] = False
 sleep(0.5)
