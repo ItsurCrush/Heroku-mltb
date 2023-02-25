@@ -2,6 +2,8 @@
 
 Base Repo : https://github.com/weebzone/WZML
 
+# Use this template option available on Puffin Browser. To fork as private repo use Puffin Browser
+
 # Fork or import heroku branch only . If you already fork both branch then delete master branch . I wish it will help to protect ban from server .
 
 # Instruction #
