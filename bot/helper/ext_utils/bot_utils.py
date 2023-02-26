@@ -471,6 +471,10 @@ def is_sharedrive_link(url: str):
     url = re_match(r'https?://(sharedrive)\.\S+', url)
     return bool(url)
 
+def is_unified_link(url: str):
+    url = re_match(r'https?://(appdrive|driveapp|driveace|gdflix|driveroot|driveflix|indidrive|drivehub|drivelinks|drivebit|drivesharer|drivepro|driveseed|driveleech)\.\S+', url)
+    return bool(url)
+
 def is_filepress_link(url: str):
     url = re_match(r'https?://(filepress|filebee)\.\S+', url)
     return bool(url)
@@ -695,7 +699,7 @@ def bot_sys_stats():
         if stats.status() == MirrorStatus.STATUS_SPLITTING:
             num_split += 1
     return f"""
-Made with by {config_dict['CREDIT_NAME']}
+Modified by {config_dict['CREDIT_NAME']}
 
 Tasks: {tasks}
 
