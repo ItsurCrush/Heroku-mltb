@@ -5,11 +5,11 @@ from threading import Thread
 from time import sleep, time
 
 from bot.helper.ext_utils.bot_utils import is_sudo, is_paid, get_user_task, get_category_buttons, get_readable_file_size, getUserTDs, \
-                    new_thread, get_bot_pm, is_url, is_gdrive_link, is_gdtot_link, is_udrive_link, is_sharer_link, \
+                    new_thread, get_bot_pm, is_url, is_gdrive_link, is_gdtot_link, is_udrive_link, is_sharer_link, is_unified_link, \
                     is_sharedrive_link, is_filepress_link, userlistype
 from bot.helper.ext_utils.exceptions import DirectDownloadLinkException
 from bot.helper.ext_utils.timegap import timegap_check
-from bot.helper.mirror_utils.download_utils.direct_link_generator import gdtot, udrive, sharer_pw_dl, shareDrive, filepress
+from bot.helper.mirror_utils.download_utils.direct_link_generator import gdtot, udrive, sharer_pw_dl, shareDrive, filepress, unified
 from bot.helper.mirror_utils.status_utils.clone_status import CloneStatus
 from bot.helper.mirror_utils.upload_utils.gdriveTools import GoogleDriveHelper
 from bot.helper.telegram_helper.bot_commands import BotCommands
@@ -121,7 +121,7 @@ def _clone(message, bot):
         else:
             tag = reply_to.from_user.mention_html(reply_to.from_user.first_name)
 
-    if not (is_gdrive_link(link) or (link.strip().isdigit() and multi == 0) or is_gdtot_link(link) or is_udrive_link(link) or is_sharer_link(link) or is_sharedrive_link(link) or is_filepress_link(link)):
+    if not (is_gdrive_link(link) or (link.strip().isdigit() and multi == 0) or is_gdtot_link(link) or is_udrive_link(link) or is_sharer_link(link) or is_sharedrive_link(link) or is_filepress_link(link) or is_unified_link(link)):
         return sendMessage("Send Gdrive or GDToT/HubDrive/DriveHub(ws)/KatDrive/Kolop/DriveFire/FilePress/SharerPw/ShareDrive link along with command or by replying to the link by command\n\n<b>Multi links only by replying to first link/file:</b>\n<code>/cmd</code> 10(number of links/files)", bot, message)
 
     timeout = 60
@@ -172,7 +172,9 @@ def start_clone(listelem):
     is_sharer = is_sharer_link(link)
     is_sharedrive = is_sharedrive_link(link)
     is_filepress = is_filepress_link(link)
-    if (is_gdtot or is_udrive or is_sharer or is_sharedrive or is_filepress):
+    is_unified = is_unified_link(link)
+    if (is_gdtot or is_udrive or is_sharer or is_sharedrive or is_filepress or is_unified):
+
         try:
             LOGGER.info(f"Processing: {link}")
             if is_gdtot:
@@ -190,6 +192,9 @@ def start_clone(listelem):
             elif is_filepress:
                 msg = sendMessage(f"FILEPRESS LINK DETECTED !", bot, message)
                 link = filepress(link)
+            elif is_unified:
+                msg = sendMessage(f"UNIFIED LINK DETECTED !", bot, message)
+                link = unified(link)
             LOGGER.info(f"Generated GDrive Link: {link}")
             deleteMessage(bot, msg)
         except DirectDownloadLinkException as e:
@@ -230,7 +235,7 @@ def start_clone(listelem):
                     msg = f"<b>🗂️ Name: </b><{config_dict['NAME_FONT']}>{escape(name)}</{config_dict['NAME_FONT']}>\n"
                 else:
                     msg = f"<b>Name: </b><{config_dict['NAME_FONT']}>{escape(name)}</{config_dict['NAME_FONT']}>\n"
-                botpm = f"\n<b>Hey {tag}!, I have sent your cloned links in PM.</b>\n"
+                botpm = f"\n<b>Hey {tag}. I have sent your cloned links in PM.</b>\n"
                 buttons = ButtonMaker()
                 b_uname = bot.get_me().username
                 botstart = f"http://t.me/{b_uname}"
@@ -273,7 +278,7 @@ def start_clone(listelem):
                             msg = f"<b>🗂️ Name: </b><{config_dict['NAME_FONT']}>{escape(name)}</{config_dict['NAME_FONT']}>\n"
                         else:
                             msg = f"<b>Name: </b><{config_dict['NAME_FONT']}>{escape(name)}</{config_dict['NAME_FONT']}>\n"
-                        botpm = f"\n<b>Hey {tag}!, I have sent your cloned links in PM.</b>\n"
+                        botpm = f"\n<b>Hey {tag}. I have sent your cloned links in PM.</b>\n"
                         buttons = ButtonMaker()
                         b_uname = bot.get_me().username
                         botstart = f"http://t.me/{b_uname}"
@@ -333,7 +338,7 @@ def start_clone(listelem):
                 pass  
 
     if config_dict['EMOJI_THEME']:
-        cc = f'\n<b>👤 Clone_By: </b>{tag}\n\n'
+        cc = f'\n<b>👤 Clone By: </b>{tag}\n\n'
     else:
         cc = f'\n<b>Clone By: </b>{tag}\n\n'
     if button.build_menu(2) in ["cancelled", ""]:
