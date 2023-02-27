@@ -300,14 +300,17 @@ def uptobox(url: str) -> str:
 
 
 def mediafire(url: str) -> str:
-    """ MediaFire direct link generator """
+    if link := re_findall(r'https?:\/\/download\d+\.mediafire\.com\/\S+\/\S+\/\S+', url):
+        return link[0]
+    rget = create_scraper().request
     try:
-        link = re_findall(r'\bhttps?://.*mediafire\.com\S+', url)[0]
+        url = rget('get', url).url
+        page = rget('get', url).text
     except IndexError:
-        raise DirectDownloadLinkException("No MediaFire links found\n")
-    page = BeautifulSoup(rget(link).content, 'lxml')
-    info = page.find('a', {'aria-label': 'Download file'})
-    return info.get('href')
+        raise DirectDownloadLinkException(f"ERROR: {e.__class__.__name__}")
+    if not (link := re_findall(r"\'(https?:\/\/download\d+\.mediafire\.com\/\S+\/\S+\/\S+)\'", page)):
+        raise DirectDownloadLinkException("ERROR: No links found in this page")
+    return link[0]
 
 
 def osdn(url: str) -> str:
