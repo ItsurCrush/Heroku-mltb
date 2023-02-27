@@ -232,7 +232,7 @@ def start_clone(listelem):
         if BOT_PM_X:
             if message.chat.type != 'private':
                 if config_dict['SAFE_MODE']:
-                    name = "File name is hidden because Safe Mode is enabled."
+                    name = "File Name is hidden because SAFE_MODE is enabled."
                 else:
                     name = name
                 if config_dict['EMOJI_THEME']:
