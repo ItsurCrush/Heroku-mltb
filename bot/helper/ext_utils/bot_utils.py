@@ -246,7 +246,7 @@ def get_readable_message():
                 globals()['PAGE_NO'] -= 1
         for index, download in enumerate(list(download_dict.values())[COUNT:], start=1):
             if config_dict['SAFE_MODE']:
-                msg += f"<b><a href=>{download.status()} With {download.eng()}</a></b>"
+                msg += f"<b>{download.status()}: </b><code>File Name is hidden because SAFE_MODE is enabled.</code>"
             else:
                 msg += f"<b><a href='{download.message.link}'>{download.status()}</a>: </b>"
                 msg += f"<code>{escape(str(download.name()))}</code>"
