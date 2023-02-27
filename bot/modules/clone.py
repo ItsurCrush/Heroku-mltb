@@ -231,6 +231,10 @@ def start_clone(listelem):
         deleteMessage(bot, msg)
         if BOT_PM_X:
             if message.chat.type != 'private':
+                if config_dict['SAFE_MODE']:
+                    name = "File name is hidden because Safe Mode is enabled."
+                else:
+                    name = name
                 if config_dict['EMOJI_THEME']:
                     msg = f"<b>🗂️ Name: </b><{config_dict['NAME_FONT']}>{escape(name)}</{config_dict['NAME_FONT']}>\n"
                 else:
