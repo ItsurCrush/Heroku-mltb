@@ -69,12 +69,12 @@ def _mirror_leech(bot, message, isZip=False, extract=False, isQbit=False, isLeec
             if TOTAL_TASKS_LIMIT == total_task:
                 return sendMessage(f"<b>Bot Total Task Limit : {TOTAL_TASKS_LIMIT}\nTasks Processing : {total_task}\nTotal Task Limit Exceed </b>\nBuy Paid Service", bot ,message)
             if USER_TASKS_LIMIT == get_user_task(user_id):
-                return sendMessage(f"<b>Bot Total Task Limit : {USER_TASKS_LIMIT} \nYour Tasks : {get_user_task(user_id)}\nUser Task Lmit Exceed</b>\nBuy Paid Service", bot ,message)        
+                return sendMessage(f"<b>User Total Task Limit : {USER_TASKS_LIMIT} \nYour Tasks : {get_user_task(user_id)}\nUser Task Lmit Exceed</b>\nBuy Paid Service", bot ,message)        
         else:
             if TOTAL_TASKS_LIMIT == total_task:
                 return sendMessage(f"<b>Bot Total Task Limit : {TOTAL_TASKS_LIMIT}\nTasks Processing : {total_task}\nTotal Task Limit Exceed </b>", bot ,message)
             if USER_TASKS_LIMIT == get_user_task(user_id):
-                return sendMessage(f"<b>Bot Total Task Limit : {USER_TASKS_LIMIT} \nYour Tasks : {get_user_task(user_id)}\nUser Task Limit Exceed</b>", bot ,message)
+                return sendMessage(f"<b>User Total Task Limit : {USER_TASKS_LIMIT} \nYour Tasks : {get_user_task(user_id)}\nUser Task Limit Exceed</b>", bot ,message)
         time_gap = timegap_check(message)
         if time_gap:
             return
