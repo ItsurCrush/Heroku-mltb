@@ -600,31 +600,23 @@ class GoogleDriveHelper:
             if not Title:
                 if tegr:
                     msg += f'<h4>Search Result For {fileName}</h4>'
-                elif html:
-                    msg += '<span class="container center rfontsize">' \
-                          f'<h4>Search Result For {fileName}</h4></span>'
-                Title = True
+                    Title = True
 
             if drive_name:
                 if tegr:
                     msg += f"╾──────────────────────╼<br><b>{drive_name}</b><br>╾──────────────────────╼<br>"
-                elif html:
-                    msg += '<span class="container center rfontsize">' \
-                          f'<b>{drive_name}</b></span>'
                 else: msg += f"\n╾────────────────────╼\n<b>{drive_name}</b>\n╾────────────────────╼\n"
 
             for file in response.get('files', []):
                 mime_type = file.get('mimeType')
                 if mime_type == "application/vnd.google-apps.folder":
-                    furl = f"https://drive.google.com/drive/folders/{file.get('id')}"
+                    if config_dict['SHORTENER']:
+                        furl = short_url(f"https://drive.google.com/drive/folders/{file.get('id')}", self.user_id)
+                    else:
+                        furl = f"https://drive.google.com/drive/folders/{file.get('id')}"
                     if tegr:
                         msg += f"📁 <code>{file.get('name')}<br>(folder)</code><br>"
                         msg += f"<b><a href='{furl}'>Drive Link</a></b>"
-                    elif html:
-                        msg += '<span class="container start rfontsize">' \
-                              f"<div>📁 {file.get('name')} (folder)</div>" \
-                               '<div class="dlinks">' \
-                              f'<span> <a class="forhover" href="{furl}">Drive Link</a></span>'
                     else: 
                         msg += f"📁 <code>{file.get('name')}\n(folder)</code>\n"
                         msg += f"<b><a href='{furl}'>Drive Link</a></b>"
@@ -636,30 +628,18 @@ class GoogleDriveHelper:
                         url = f'{index_url}/{url_path}/'
                         if tegr or tgdi:
                             msg += f' <b>| <a href="{url}">Index Link</a></b>'
-                        elif html:
-                            msg += '<span> | </span>' \
-                                f'<span> <a class="forhover" href="{index_url}/{url_path}/">Index Link</a></span>'
                 elif mime_type == 'application/vnd.google-apps.shortcut':
                     furl = f"https://drive.google.com/drive/folders/{file.get('id')}"
-                    if html:
-                        msg += '<span class="container start rfontsize">' \
-                              f"<div>📁 {file.get('name')} (shortcut)</div>" \
-                               '<div class="dlinks">' \
-                              f'<span> <a class="forhover" href="{furl}">Drive Link</a></span>'\
-                               '</div></span>'
-                    else:
-                        msg += f"⁍<a href='https://drive.google.com/drive/folders/{file.get('id')}'>{file.get('name')}" \
-                               f"</a> (shortcut)"
+                    msg += f"⁍<a href='https://drive.google.com/drive/folders/{file.get('id')}'>{file.get('name')}" \
+                           f"</a> (shortcut)"
                 else:
-                    furl = f"https://drive.google.com/uc?id={file.get('id')}&export=download"
+                    if config_dict['SHORTENER']:
+                        furl = short_url("https://drive.google.com/uc?id={file.get('id')}&export=download", self.user_id)
+                    else:
+                        furl = f"https://drive.google.com/uc?id={file.get('id')}&export=download"
                     if tegr:
                         msg += f"📄 <code>{file.get('name')}<br>({get_readable_file_size(int(file.get('size', 0)))})</code><br>"
                         msg += f"<b><a href='{furl}'>Drive Link</a></b>"
-                    elif html:
-                        msg += '<span class="container start rfontsize">' \
-                              f"<div>📄 {file.get('name')} ({get_readable_file_size(int(file.get('size', 0)))})</div>" \
-                               '<div class="dlinks">' \
-                              f'<span> <a class="forhover" href="{furl}">Drive Link</a></span>'
                     else:
                         msg += f"📄 <code>{file.get('name')}\n({get_readable_file_size(int(file.get('size', 0)))})</code>\n"
                         msg += f"<b><a href='{furl}'>Drive Link</a></b>"
@@ -668,23 +648,22 @@ class GoogleDriveHelper:
                             url_path = "/".join(rquote(n, safe='') for n in self.__get_recursive_list(file, dir_id))
                         else:
                             url_path = rquote(f'{file.get("name")}')
-                        url = f'{index_url}/{url_path}'
-                        if html:
-                            msg += '<span> | </span>' \
-                                f'<span> <a class="forhover" href="{index_url}/{url_path}">Index Link</a></span>'
-                        else:
+                        if config_dict['SHORTENER']:
+                            url = short_url(f'{index_url}/{url_path}', self.user_id)
                             msg += f' <b>| <a href="{url}">Index Link</a></b>'
-                        if config_dict['VIEW_LINK']:
+                        else:
+                            url = f'{index_url}/{url_path}'
+                            msg += f' <b>| <a href="{url}">Index Link</a></b>'
+                        if config_dict['SHORTENER']:
+                            urlv = short_url(f'{index_url}/{url_path}?a=view', self.user_id)
+                        else:
                             urlv = f'{index_url}/{url_path}?a=view'
-                            if html:
-                                msg += '<span> | </span>' \
-                                    f'<span> <a class="forhover" href="{index_url}/{url_path}?a=view">View Link</a></span>'
-                            else:
-                                msg += f' <b>| <a href="{urlv}">View Link</a></b>'
+                        if config_dict['VIEW_LINK']:
+                            urlv = urlv
+                            msg += f' <b>| <a href="{urlv}">View Link</a></b>'
+                            
                 if tegr:
                     msg += '<br><br>'
-                elif html:
-                    msg += '</div></span>'
                 else: msg += '\n\n'
                 contents_count += 1
                 if tegr and len(msg.encode('utf-8')) > 39000:
@@ -702,8 +681,6 @@ class GoogleDriveHelper:
 
         if tegr and len(telegraph_content) == 0:
             return "", None
-        elif html and contents_count == 0:
-            return "", ""
         elif tgdi and len(telemsg) == 0:
             return "", None
 
@@ -722,12 +699,6 @@ class GoogleDriveHelper:
             buttons = ButtonMaker()
             buttons.buildbutton("🔎 VIEW", f"https://telegra.ph/{path[0]}")
             return msg, buttons.build_menu(1)
-        elif html:
-            cap = f"<b>Found {contents_count} result for <i>{fileName}</i></b>"
-            f_name = f'{fileName}_{time()}.html'
-            with open(f_name, 'w', encoding='utf-8') as f:
-                f.write(hmtl_content.replace('{fileName}', fileName).replace('{msg}', msg))
-            return cap, f_name
         else:
             ulist_listener[self.user_id] = [[fileName, contents_count, itemType], telemsg]
             buttons = ButtonMaker()
