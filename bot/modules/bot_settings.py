@@ -51,6 +51,7 @@ default_values = {'AUTO_DELETE_MESSAGE_DURATION': 30,
                   'SAME_ACC_COOKIES': True,
                   'ENABLE_USR_TD': False,
                   'RSS_DELAY': 900,
+                  'ZIP_LEVEL': 0,
                   'ANIME_TEMPLATE': '''<b>{ro_title}</b>({na_title})
                                      <b>Format</b>: <code>{format}</code>
                                      <b>Status</b>: <code>{status}</code>
@@ -363,6 +364,12 @@ def load_config():
 
     SERVER_PORT = environ.get('SERVER_PORT', '')
     SERVER_PORT = 80 if len(SERVER_PORT) == 0 else int(SERVER_PORT)
+
+    ZIP_LEVEL = environ.get('ZIP_LEVEL', '')
+    if len(ZIP_LEVEL) == 0:
+        ZIP_LEVEL = 0
+    else:
+        ZIP_LEVEL = int(ZIP_LEVEL)
 
     DRIVES_IDS.clear()
     DRIVES_NAMES.clear()
