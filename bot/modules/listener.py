@@ -28,6 +28,7 @@ from bot.helper.telegram_helper.message_utils import sendMessage, delete_all_mes
 from bot import aria2, bot, DOWNLOAD_DIR, LOGGER, Interval, config_dict, user_data, DATABASE_URL, download_dict_lock, download_dict, \
                 queue_dict_lock, non_queued_dl, non_queued_up, queued_up, queued_dl, tgBotMaxFileSize, status_reply_dict_lock
 
+
 class MirrorLeechListener:
     def __init__(self, bot, message, isZip=False, extract=False, isQbit=False, isLeech=False, pswd=None, tag=None, select=False, seed=False, c_index=0, u_index=None):
         self.bot = bot
@@ -94,16 +95,16 @@ class MirrorLeechListener:
             if self.pswd is not None:
                 if self.isLeech and int(size) > TG_SPLIT_SIZE:
                     LOGGER.info(f'Zip: orig_path: {m_path}, zip_path: {path}.0*')
-                    self.suproc = Popen(["7z", f"-v{TG_SPLIT_SIZE}b", "a", "-mx=5", f"-p{self.pswd}", path, m_path])
+                    self.suproc = Popen(["7z", f"-v{TG_SPLIT_SIZE}b", "a", f"-mx={config_dict['ZIP_LEVEL']}", f"-p{self.pswd}", path, m_path])
                 else:
                     LOGGER.info(f'Zip: orig_path: {m_path}, zip_path: {path}')
-                    self.suproc = Popen(["7z", "a", "-mx=5", f"-p{self.pswd}", path, m_path])
+                    self.suproc = Popen(["7z", "a", f"-mx={config_dict['ZIP_LEVEL']}", f"-p{self.pswd}", path, m_path])
             elif self.isLeech and int(size) > TG_SPLIT_SIZE:
                 LOGGER.info(f'Zip: orig_path: {m_path}, zip_path: {path}.0*')
-                self.suproc = Popen(["7z", f"-v{TG_SPLIT_SIZE}b", "a", "-mx=5", path, m_path])
+                self.suproc = Popen(["7z", f"-v{TG_SPLIT_SIZE}b", "a", f"-mx={config_dict['ZIP_LEVEL']}", path, m_path])
             else:
                 LOGGER.info(f'Zip: orig_path: {m_path}, zip_path: {path}')
-                self.suproc = Popen(["7z", "a", "-mx=5", path, m_path])
+                self.suproc = Popen(["7z", "a", f"-mx={config_dict['ZIP_LEVEL']}", path, m_path])
             self.suproc.wait()
             if self.suproc.returncode == -9:
                 return
