@@ -693,6 +693,12 @@ else:
     FORCE_BOT_PM = 'True'
     SAFE_MODE = 'True'
 
+ZIP_LEVEL = environ.get('ZIP_LEVEL', '')
+if len(ZIP_LEVEL) == 0:
+    ZIP_LEVEL = 0
+else:
+    ZIP_LEVEL = int(ZIP_LEVEL)
+
 config_dict = {'ANILIST_ENABLED': ANILIST_ENABLED,
                'AS_DOCUMENT': AS_DOCUMENT,
                'AUTHORIZED_CHATS': AUTHORIZED_CHATS,
@@ -823,7 +829,8 @@ config_dict = {'ANILIST_ENABLED': ANILIST_ENABLED,
                'YTDLP_LIMIT': YTDLP_LIMIT,
                'MAX_PLAYLIST': MAX_PLAYLIST,
                'YT_DLP_QUALITY': YT_DLP_QUALITY,
-               'SAFE_MODE': SAFE_MODE}
+               'SAFE_MODE': SAFE_MODE,
+               'ZIP_LEVEL': ZIP_LEVEL}
 
 if GDRIVE_ID:
     DRIVES_NAMES.append("Main")
