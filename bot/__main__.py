@@ -124,7 +124,7 @@ def stats(update, context):
         user_task = 'No Limit Set' if USER_TASKS_LIMIT == '' else f'{USER_TASKS_LIMIT} Tasks/user'
 
         if config_dict['EMOJI_THEME']: 
-            stats += f'<b>🤖 Bot Limitations </b>\n'\
+            stats += f'<b>🔢 Bot Limitations </b>\n'\
                      f'🧲 Torrent/Direct: {torrent_direct}\n'\
                      f'🔐 Zip/Unzip: {zip_unzip}\n'\
                      f'🔷 Leech: {leech_limit}\n'\
@@ -133,7 +133,7 @@ def stats(update, context):
                      f'💣 Total Tasks: {total_task}\n'\
                      f'🔫 User Tasks: {user_task}\n\n'
         else: 
-            stats += f'<b>🤖 Bot Limitations </b>\n'\
+            stats += f'<b>🔢 Bot Limitations </b>\n'\
                      f'Torrent/Direct: {torrent_direct}\n'\
                      f'Zip/Unzip: {zip_unzip}\n'\
                      f'Leech: {leech_limit}\n'\
