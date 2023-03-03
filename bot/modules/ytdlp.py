@@ -61,14 +61,14 @@ def _ytdl(bot, message, isZip=False, isLeech=False):
     if user_id != OWNER_ID and not is_sudo(user_id) and not is_paid(user_id):
         if config_dict['PAID_SERVICE'] is True:
             if TOTAL_TASKS_LIMIT == total_task:
-                return sendMessage(f"<b>Bᴏᴛ Tᴏᴛᴀʟ Tᴀsᴋ Lɪᴍɪᴛ : {TOTAL_TASKS_LIMIT}\nTᴀsᴋs Pʀᴏᴄᴇssɪɴɢ : {total_task}\n#total limit exceed </b>\n#Buy Paid Service", bot ,message)
+                return sendMessage(f"<b>Bot Total Task Limit : {TOTAL_TASKS_LIMIT}\nTask Processing : {total_task}\nTotal Task Limit Exceed </b>\nBuy Paid Service", bot ,message)
             if USER_TASKS_LIMIT == get_user_task(user_id):
-                return sendMessage(f"<b>Bᴏᴛ Usᴇʀ Tᴀsᴋ Lɪᴍɪᴛ : {USER_TASKS_LIMIT} \nYᴏᴜʀ Tᴀsᴋs : {get_user_task(user_id)}\n#user limit exceed</b>\n#Buy Paid Service", bot ,message)
+                return sendMessage(f"<b>Bot User Task Limit : {USER_TASKS_LIMIT} \nYour Tasks : {get_user_task(user_id)}\nUser Task Limit Exceed</b>\nBuy Paid Service", bot ,message)
         else:
             if TOTAL_TASKS_LIMIT == total_task:
-                return sendMessage(f"<b>Bᴏᴛ Tᴏᴛᴀʟ Tᴀsᴋ Lɪᴍɪᴛ : {TOTAL_TASKS_LIMIT}\nTᴀsᴋs Pʀᴏᴄᴇssɪɴɢ : {total_task}\n#total limit exceed </b>", bot ,message)
+                return sendMessage(f"<b>Bot Total Task Limit : {TOTAL_TASKS_LIMIT}\nTask Processing : {total_task}\nTotal Task Limit Exceed </b>", bot ,message)
             if USER_TASKS_LIMIT == get_user_task(user_id):
-                return sendMessage(f"<b>Bᴏᴛ Usᴇʀ Tᴀsᴋ Lɪᴍɪᴛ : {USER_TASKS_LIMIT} \nYᴏᴜʀ Tᴀsᴋs : {get_user_task(user_id)}\n#user limit exceed</b>", bot ,message)
+                return sendMessage(f"<b>Bot User Task Limit : {USER_TASKS_LIMIT} \nYour Tasks : {get_user_task(user_id)}\nUser Task Limit Exceed</b>", bot ,message)
         time_gap = timegap_check(message)
         if time_gap:
             return
