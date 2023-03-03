@@ -55,16 +55,28 @@ class MirrorStatus:
         STATUS_CONVERTING = "Converting"
 
 class EngineStatus:
-    STATUS_ARIA = "Aria2c 📶"
-    STATUS_GD = "Google Api ♻️"
-    STATUS_MEGA = "MegaSDK ⭕️"
-    STATUS_QB = "qBittorrent 🦠"
-    STATUS_TG = "Pyrogram 💥"
-    STATUS_YT = "YT-Dlp 🌟"
-    STATUS_EXT = "pExtract ⚔️"
-    STATUS_SPLIT_MERGE = "FFmpeg 🍿"
-    STATUS_ZIP = "p7zip 🛠"
-    STATUS_QUEUE = "Sleep 💤"
+    if config_dict['EMOJI_THEME']:
+        STATUS_ARIA = "Aria2c 📶"
+        STATUS_GD = "Google Api ♻️"
+        STATUS_MEGA = "MegaSDK ⭕️"
+        STATUS_QB = "qBittorrent 🦠"
+        STATUS_TG = "Pyrogram 💥"
+        STATUS_YT = "YT-Dlp 🌟"
+        STATUS_EXT = "pExtract ⚔️"
+        STATUS_SPLIT_MERGE = "FFmpeg 🍿"
+        STATUS_ZIP = f"p7zip 🛠 | <b>Level :</b> {config_dict['ZIP_LEVEL']}"
+        STATUS_QUEUE = "Sleep 💤"
+    else:
+        STATUS_ARIA = "Aria2c"
+        STATUS_GD = "Google Api"
+        STATUS_MEGA = "MegaSDK"
+        STATUS_QB = "qBittorrent"
+        STATUS_TG = "Pyrogram"
+        STATUS_YT = "YT-Dlp"
+        STATUS_EXT = "pExtract"
+        STATUS_SPLIT_MERGE = "FFmpeg"
+        STATUS_ZIP = f"p7zip | <b>Level :</b> {config_dict['ZIP_LEVEL']}"
+        STATUS_QUEUE = "Sleep"
 
     
 SIZE_UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'PB']
