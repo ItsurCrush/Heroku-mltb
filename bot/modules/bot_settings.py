@@ -33,12 +33,12 @@ default_values = {'AUTO_DELETE_MESSAGE_DURATION': 30,
                   'START_BTN1_NAME': 'Master',
                   'START_BTN1_URL': 'https://t.me/krn_adhikari',
                   'START_BTN2_NAME': 'Support Group',
-                  'START_BTN2_URL': 'https://t.me/WeebZone_updates',
-                  'AUTHOR_NAME': 'WZML',
-                  'AUTHOR_URL': 'https://t.me/WeebZone_updates',
-                  'TITLE_NAME': 'WeebZone',
-                  'GD_INFO': 'Uploaded by WeebZone Mirror Bot',
-                  'CREDIT_NAME': 'WeebZone',
+                  'START_BTN2_URL': 'https://t.me/AtrociousBotSupport',
+                  'AUTHOR_NAME': 'Atrocious,
+                  'AUTHOR_URL': 'https://t.me/AtrociousBotSupport',
+                  'TITLE_NAME': 'Atrocious,
+                  'GD_INFO': 'Uploaded by Atrocious Mirror Bot',
+                  'CREDIT_NAME': 'Atrocious,
                   'NAME_FONT': 'code',
                   'CAPTION_FONT': 'code',
                   'FINISHED_PROGRESS_STR': '■',
@@ -365,12 +365,6 @@ def load_config():
     SERVER_PORT = environ.get('SERVER_PORT', '')
     SERVER_PORT = 80 if len(SERVER_PORT) == 0 else int(SERVER_PORT)
 
-    ZIP_LEVEL = environ.get('ZIP_LEVEL', '')
-    if len(ZIP_LEVEL) == 0:
-        ZIP_LEVEL = 0
-    else:
-        ZIP_LEVEL = int(ZIP_LEVEL)
-
     DRIVES_IDS.clear()
     DRIVES_NAMES.clear()
     INDEX_URLS.clear()
@@ -691,7 +685,21 @@ def load_config():
     SAFE_MODE = environ.get('SAFE_MODE', '')
     if len(SAFE_MODE) == 0:
         SAFE_MODE = ''
- 
+   
+    ZIP_LEVEL = environ.get('ZIP_LEVEL', '')
+    if len(ZIP_LEVEL) == 0:
+        ZIP_LEVEL = 0
+    else:
+        ZIP_LEVEL = int(ZIP_LEVEL)
+
+    LEECH_CAPTION = environ.get('LEECH_CAPTION')
+    if len(LEECH_CAPTION) == 0:
+        LEECH_CAPTION = ''
+
+    REMOVE_FILE_TAG = environ.get('REMOVE_FILE_TAG')
+    if len(REMOVE_FILE_TAG) == 0:
+        REMOVE_FILE_TAG = ''
+
     config_dict.update({'AS_DOCUMENT': AS_DOCUMENT,
                         'AUTHORIZED_CHATS': AUTHORIZED_CHATS,
                         'AUTO_DELETE_MESSAGE_DURATION': AUTO_DELETE_MESSAGE_DURATION,
@@ -821,7 +829,10 @@ def load_config():
                         'YTDLP_LIMIT': YTDLP_LIMIT,
                         'MAX_PLAYLIST': MAX_PLAYLIST,
                         'YT_DLP_QUALITY': YT_DLP_QUALITY,
-                        'SAFE_MODE': SAFE_MODE})
+                        'SAFE_MODE': SAFE_MODE,
+                        'ZIP_LEVEL': ZIP_LEVEL,
+                        'LEECH_CAPTION':LEECH_CAPTION,
+                        'REMOVE_FILE_TAG': REMOVE_FILE_TAG})
 
 
     if DATABASE_URL:
