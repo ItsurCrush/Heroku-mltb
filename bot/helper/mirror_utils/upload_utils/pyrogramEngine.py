@@ -9,7 +9,6 @@ from bot.helper.ext_utils.fs_utils import take_ss, get_media_info, get_media_str
 from bot.helper.ext_utils.bot_utils import get_readable_file_size, change_filename, get_bot_pm
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-
 LOGGER = getLogger(__name__)
 getLogger("pyrogram").setLevel(ERROR)
 IMAGE_SUFFIXES = ("JPG", "JPX", "PNG", "CR2", "TIF", "BMP", "JXR", "PSD", "ICO", "HEIC", "JPEG")
