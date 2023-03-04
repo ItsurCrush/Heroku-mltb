@@ -699,6 +699,14 @@ if len(ZIP_LEVEL) == 0:
 else:
     ZIP_LEVEL = int(ZIP_LEVEL)
 
+LEECH_CAPTION = environ.get('LEECH_CAPTION')
+if len(LEECH_CAPTION) == 0:
+    LEECH_CAPTION = ''
+
+REMOVE_FILE_TAG = environ.get('REMOVE_FILE_TAG')
+if len(REMOVE_FILE_TAG) == 0:
+    REMOVE_FILE_TAG = ''
+
 config_dict = {'ANILIST_ENABLED': ANILIST_ENABLED,
                'AS_DOCUMENT': AS_DOCUMENT,
                'AUTHORIZED_CHATS': AUTHORIZED_CHATS,
@@ -830,7 +838,9 @@ config_dict = {'ANILIST_ENABLED': ANILIST_ENABLED,
                'MAX_PLAYLIST': MAX_PLAYLIST,
                'YT_DLP_QUALITY': YT_DLP_QUALITY,
                'SAFE_MODE': SAFE_MODE,
-               'ZIP_LEVEL': ZIP_LEVEL}
+               'ZIP_LEVEL': ZIP_LEVEL,
+               'LEECH_CAPTION': LEECH_CAPTION,
+               'REMOVE_FILE_TAG': REMOVE_FILE_TAG}
 
 if GDRIVE_ID:
     DRIVES_NAMES.append("Main")
