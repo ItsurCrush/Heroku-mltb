@@ -64,7 +64,7 @@ class EngineStatus:
         STATUS_YT = "YT-Dlp 🌟"
         STATUS_EXT = "pExtract ⚔️"
         STATUS_SPLIT_MERGE = "FFmpeg 🍿"
-        STATUS_ZIP = f"p7zip 🛠 | <b>Level :</b> {config_dict['ZIP_LEVEL']}"
+        STATUS_ZIP = f"p7zip 🛠 | <b>Leve:</b> {config_dict['ZIP_LEVEL']}"
         STATUS_QUEUE = "Sleep 💤"
     else:
         STATUS_ARIA = "Aria2c"
@@ -75,7 +75,7 @@ class EngineStatus:
         STATUS_YT = "YT-Dlp"
         STATUS_EXT = "pExtract"
         STATUS_SPLIT_MERGE = "FFmpeg"
-        STATUS_ZIP = f"p7zip | <b>Level :</b> {config_dict['ZIP_LEVEL']}"
+        STATUS_ZIP = f"p7zip | <b>Level: </b> {config_dict['ZIP_LEVEL']}"
         STATUS_QUEUE = "Sleep"
 
     
@@ -269,7 +269,7 @@ def get_readable_message():
                     msg += f"\n<b>⚡ Speed:</b> {download.speed()}"
                     msg += f"\n<b>⏳ ETA:</b> {download.eta()}"
                     msg += f"<b> | Elapsed: </b>{get_readable_time(time() - download.message.date.timestamp())}"
-                    msg += f"\n<b>⛓️ Engine :</b> {download.eng()}"
+                    msg += f"\n<b>⛓️ Engine:</b> {download.eng()}"
 
                 else:
                     msg += f"\n<b></b>{get_progress_bar_string(download)} {download.progress()}"
@@ -277,7 +277,7 @@ def get_readable_message():
                     msg += f"\n<b>Speed:</b> {download.speed()}"
                     msg += f"\n<b>ETA:</b> {download.eta()}"
                     msg += f"<b> | Elapsed: </b>{get_readable_time(time() - download.message.date.timestamp())}"
-                    msg += f"\n<b>Engine :</b> {download.eng()}"
+                    msg += f"\n<b>Engine:</b> {download.eng()}"
 
                 if hasattr(download, 'seeders_num'):
                     try:
@@ -293,17 +293,17 @@ def get_readable_message():
                     try:
                         chatid = str(download.message.chat.id)[4:]
                         if config_dict['EMOJI_THEME']:
-                            msg += f'\n<b>🌐 Source: </b><a href="https://t.me/c/{chatid}/{download.message.message_id}">{download.message.from_user.first_name}</a> | <b>Id :</b> <code>{download.message.from_user.id}</code>'
-                            msg += f"\n<b>❌ </b><code>/{BotCommands.CancelMirror} {download.gid()}</code>"
+                            msg += f'\n<b>🌐 Source: </b><a href="https://t.me/c/{chatid}/{download.message.message_id}">{download.message.from_user.first_name}</a> | <b>Id:</b> <code>{download.message.from_user.id}</code>'
+                            msg += f"\n<b>🚫 Cancel:</b> <code>/{BotCommands.CancelMirror} {download.gid()}</code>"
                         else:
-                            msg += f'\n<b>Source: </b><a href="https://t.me/c/{chatid}/{download.message.message_id}">{download.message.from_user.first_name}</a> | <b>Id :</b> <code>{download.message.from_user.id}</code>'
+                            msg += f'\n<b>Source: </b><a href="https://t.me/c/{chatid}/{download.message.message_id}">{download.message.from_user.first_name}</a> | <b>Id:</b> <code>{download.message.from_user.id}</code>'
                             msg += f"\n<b>Cancel: </b><code>/{BotCommands.CancelMirror} {download.gid()}</code>"                 
                     except:
                         pass
                 else:
                     if config_dict['EMOJI_THEME']:
                         msg += f'\n<b>👤 User:</b> ️<code>{download.message.from_user.first_name}</code> | <b>Id:</b> <code>{download.message.from_user.id}</code>'
-                        msg += f"\n<b>❌ </b><code>/{BotCommands.CancelMirror} {download.gid()}</code>"
+                        msg += f"\n<b>🚫 Cancel:</b> <code>/{BotCommands.CancelMirror} {download.gid()}</code>"
                     else:
                         msg += f'\n<b>User:</b> ️<code>{download.message.from_user.first_name}</code> | <b>Id:</b> <code>{download.message.from_user.id}</code>'
                         msg += f"\n<b>Cancel: </b><code>/{BotCommands.CancelMirror} {download.gid()}</code>"
@@ -317,7 +317,7 @@ def get_readable_message():
                     msg += f"\n<b>📎 Ratio: </b>{download.ratio()}"
                     msg += f" | <b>⏲️ Time: </b>{download.seeding_time()}"
                     msg += f"\n<b>⏳ Elapsed: </b>{get_readable_time(time() - download.message.date.timestamp())}"
-                    msg += f"\n<b>❌ </b><code>/{BotCommands.CancelMirror} {download.gid()}</code>"
+                    msg += f"\n<b>🚫 Cancel:</b> <code>/{BotCommands.CancelMirror} {download.gid()}</code>"
                 else:
                     msg += f"\n<b>Size: </b>{download.size()}"
                     msg += f"\n<b>Engine:</b> <code>qBittorrent v4.4.2</code>"
@@ -329,12 +329,11 @@ def get_readable_message():
                     msg += f"\n<b></b><code>/{BotCommands.CancelMirror} {download.gid()}</code>"
             else:
                 if config_dict['EMOJI_THEME']:
-                    msg += f"\n<b>⛓️ Engine :</b> {download.eng()}"
+                    msg += f"\n<b>⛓️ Engine:</b> {download.eng()}"
                     msg += f"\n<b>📐 Size: </b>{download.size()}"
                 else:
-                    msg += f"\n<b>Engine :</b> {download.eng()}"
+                    msg += f"\n<b>Engine:</b> {download.eng()}"
                     msg += f"\n<b>Size: </b>{download.size()}"
-            msg += f"\n<b>_________________________________</b>"
             msg += "\n\n"
             if index == STATUS_LIMIT:
                 break
@@ -362,12 +361,18 @@ def get_readable_message():
                     up_speed += float(spd.split('K')[0]) * 1024
                 elif 'M' in spd:
                     up_speed += float(spd.split('M')[0]) * 1048576
-        if config_dict['EMOJI_THEME']:
-            bmsg = f"<b>🖥 CPU:</b> {cpu_percent()}% | <b>💿 FREE:</b> {get_readable_file_size(disk_usage(DOWNLOAD_DIR).free)}"
-            bmsg += f"\n<b>🎮 RAM:</b> {virtual_memory().percent}% | <b>🟢 UPTIME:</b> {get_readable_time(time() - botStartTime)}"
-            bmsg += f"\n<b>🔻 DL:</b> {get_readable_file_size(dl_speed)}/s | <b>🔺 UL:</b> {get_readable_file_size(up_speed)}/s"
+        if config_dict['TOTAL_TASKS_LIMIT']:
+            TASKS_COUNT = f"<b>Task Limit: </b>{config_dict['TOTAL_TASKS_LIMIT']} | <b>Run:</b> {len(download_dict)} | <b>Free:</b> {config_dict['TOTAL_TASKS_LIMIT'] - len(download_dict)}\n"
         else:
-            bmsg = f"<b>CPU:</b> {cpu_percent()}% | <b>FREE:</b> {get_readable_file_size(disk_usage(DOWNLOAD_DIR).free)}"
+            TASKS_COUNT = f""
+        if config_dict['EMOJI_THEME']:
+            bmsg = f"🖥 {TASKS_COUNT}"
+            bmsg += f"<b>🖥 CPU:</b> {cpu_percent()}% | <b>💿 FREE:</b> {get_readable_file_size(disk_usage(DOWNLOAD_DIR).free)}"
+            bmsg += f"\n<b>🎮 RAM:</b> {virtual_memory().percent}% | <b>🟢 UPTIME:</b> {get_readable_time(time() - botStartTime)}"
+            bmsg += f"\n<b>🔽 DL:</b> {get_readable_file_size(dl_speed)}/s | <b>🔼 UL:</b> {get_readable_file_size(up_speed)}/s"
+        else:
+            bmsg = f"{TASKS_COUNT}"
+            bmsg += f"<b>CPU:</b> {cpu_percent()}% | <b>FREE:</b> {get_readable_file_size(disk_usage(DOWNLOAD_DIR).free)}"
             bmsg += f"\n<b>RAM:</b> {virtual_memory().percent}% | <b>UPTIME:</b> {get_readable_time(time() - botStartTime)}"
             bmsg += f"\n<b>DL:</b> {get_readable_file_size(dl_speed)}/s | <b>UL:</b> {get_readable_file_size(up_speed)}/s"
         
