@@ -126,6 +126,12 @@ class TgUploader:
             new_path = ospath.join(dirpath, file_)
             osrename(up_path, new_path)
             up_path = new_path
+        if len(file_) > 50:
+            extension = ospath.splitext(file_)[1]
+            file_ = file_[:50] + '' + extension
+            new_path = ospath.join(dirpath, file_)
+            osrename(up_path, new_path)
+            up_path = new_path
         else:
             cap_mono = f"<config_dict['CAPTION_FONT']>{file_}</config_dict['CAPTION_FONT']>"
         
