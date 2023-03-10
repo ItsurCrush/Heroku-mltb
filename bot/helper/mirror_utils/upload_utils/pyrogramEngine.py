@@ -129,6 +129,11 @@ class TgUploader:
         else:
             cap_mono = f"<config_dict['CAPTION_FONT']>{file_}</config_dict['CAPTION_FONT']>"
         
+        if config_dict['AS_DOCUMENT']:
+            cap_mono = f""
+        else:
+            cap_mono = cap_mono
+        
         notMedia = False
         thumb = self.__thumb
         self.__is_corrupted = False
