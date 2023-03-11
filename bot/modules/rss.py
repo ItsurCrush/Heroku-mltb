@@ -1,3 +1,6 @@
+import re
+import cloudscraper 
+from bs4 import BeautifulSoup
 from feedparser import parse as feedparse
 from time import sleep
 from telegram.ext import CommandHandler, CallbackQueryHandler
@@ -11,7 +14,7 @@ from bot.helper.ext_utils.db_handler import DbManger
 from bot.helper.telegram_helper.button_build import ButtonMaker
 
 rss_dict_lock = Lock()
-
+magnets = []
 def rss_list(update, context):
     if len(rss_dict) > 0:
         list_feed = "<b>Your subscriptions: </b>\n\n"
@@ -211,7 +214,18 @@ def rss_monitor(context):
                 except IndexError:
                     url = rss_d.entries[feed_count]['link']
                 if RSS_COMMAND := config_dict['RSS_COMMAND']:
-                    feed_msg = f"{RSS_COMMAND} {url}"
+                    hijk = url
+                    scraper = cloudscraper.create_scraper(allow_brotli=False)
+                    lmno=scraper.get(hijk).text 
+                    soup4=BeautifulSoup(lmno,'html.parser')
+                    for pqrs in soup4.find_all('a',attrs={'href':re.compile(r"^magnet")}): 
+                        url=pqrs.get('href')
+                        if url in magnets:
+                            break
+                        else: 
+                            magnets.append(url)
+                        feed_msg = f"/{RSS_COMMAND} {url}"
+                        sendRss(feed_msg, context.bot)
                 else:
                     feed_msg = f"<b>Name: </b><code>{rss_d.entries[feed_count]['title'].replace('>', '').replace('<', '')}</code>\n\n"
                     feed_msg += f"<b>Link: </b><code>{url}</code>"
